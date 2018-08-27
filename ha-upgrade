@@ -1,0 +1,10 @@
+#Stop Home Assistant
+service home-assistant@ha stop
+#Open the directory where the virtual environment is located:
+cd ~ha/homeassistant
+#Activate the virtual environment:
+source bin/activate
+#Upgrade Home Assistant:
+python3 -m pip install --upgrade homeassistant
+#Start Home Assistant
+service home-assistant@ha start
