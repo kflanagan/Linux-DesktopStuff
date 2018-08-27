@@ -1,0 +1,28 @@
+{
+    "data": {
+        "entries": [
+            {
+                "data": {},
+                "domain": "cast",
+                "entry_id": "55d220c352e540ef82537ad8f5927fa2",
+                "source": "discovery",
+                "title": "Google Cast",
+                "version": 1
+            },
+            {
+                "data": {
+                    "bridge_id": "001788FFFE7D6DC3",
+                    "host": "192.168.86.226",
+                    "username": "oYaahAB91TyqMZcTL9kaAibMDFjjavoL1tV3fep6"
+                },
+                "domain": "hue",
+                "entry_id": "7505a741984f4d13b80517c7bac43dc6",
+                "source": "user",
+                "title": "Philips hue",
+                "version": 1
+            }
+        ]
+    },
+    "key": "core.config_entries",
+    "version": 1
+}

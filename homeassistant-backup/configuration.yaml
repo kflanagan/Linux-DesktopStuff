@@ -1,0 +1,132 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Flanagan
+  # Location required to calculate the time the sun rises and sets
+  latitude: 35.869328
+  longitude: -78.5350851
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 315
+  # metric for Metric, imperial for Imperial
+  unit_system: imperial
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+  # Customization file
+  customize: !include customize.yaml
+
+# Show links to resources in log and frontend
+# introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+   include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+map:
+
+# View all events in a logbook
+logbook:
+
+zone:
+  name: Home
+  latitude: 35.869328
+  longitude: -78.5350851
+  radius: 200
+  icon: mdi:home
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+# sun:
+
+# Weather prediction
+sensor:
+#  - platform: yr
+- platform: google_wifi
+#- platform: darksky
+#    api_key: 6ce5ca0c2473dfc57ad44daa98d4c638
+#    monitored_conditions:
+#      - summary
+#      - icon
+#      - nearest_storm_distance
+
+#- platform: pollen
+#  zip_code: "27616"
+#  monitored_conditions:
+#    - allergy_average_forecasted
+#    - allergy_average_historical
+#    - allergy_index_today
+#    - allergy_index_tomorrow
+#    - allergy_index_yesterday
+#    - disease_average_forecasted
+# - platform: speedtest
+#    monitored_conditions:
+#      - ping
+#      - download
+#      - upload
+
+#- platform: waqi
+#  token: 3fc3182c9ef3c3ef436f4ba04e6092155ba4bbfb
+#  locations:
+#  - Raleigh, NC
+
+
+weather:
+ - platform: darksky
+   api_key: 6ce5ca0c2473dfc57ad44daa98d4c638
+
+
+media_player:
+  - platform: roku
+  - platform: samsungtv
+    host: 192.168.86.223
+
+shopping_list:
+
+#Kevin's lamp
+switch:
+  - platform: tplink
+    name: Living Room lamp
+    host: 192.168.86.40
+
+ifttt:
+  key: dPQC0ZG0wSnPlUIlMOuilC
+
+
+
+# Text to speech
+tts:
+  - platform: google
+
+# Cloud
+cloud:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
