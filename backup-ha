@@ -1,0 +1,3 @@
+rm -Rf homeassistant.backup.old
+mv homeassistant.backup homeassistant.backup.old
+cp -R homeassistant homeassistant.backup

@@ -1,0 +1,2 @@
+# sudo journalctl -f -u home-assistant@ha | grep -i 'error'
+sudo journalctl -f -u home-assistant@ha
