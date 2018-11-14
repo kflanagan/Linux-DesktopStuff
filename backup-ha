@@ -1,3 +1,11 @@
 rm -Rf homeassistant.backup.old
 mv homeassistant.backup homeassistant.backup.old
 cp -R homeassistant homeassistant.backup
+rm -Rf homeassistant.config.backup.old
+mv homeassistant.config.backup homeassistant.config.backup.old
+cp -R .homeassistant homeassistant.config.backup
+tar -cvf haconfig-backup.tar homeassistant.config.backup
+gpg -r flanagannc@gmail.com -e  haconfig-backup.tar
+rm -f haconfig-backup.tar
+mv haconfig-backup.tar.gpg ha-backups
+mv homeassistant.backup ha-backups
