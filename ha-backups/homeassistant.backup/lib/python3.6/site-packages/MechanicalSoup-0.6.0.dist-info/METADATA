@@ -1,0 +1,25 @@
+Metadata-Version: 2.0
+Name: MechanicalSoup
+Version: 0.6.0
+Summary: A Python library for automating interaction with websites
+Home-page: https://github.com/hickford/MechanicalSoup
+Author: UNKNOWN
+Author-email: UNKNOWN
+License: MIT
+Platform: UNKNOWN
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.6
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.2
+Classifier: Programming Language :: Python :: 3.3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Requires-Dist: beautifulsoup4
+Requires-Dist: requests (>=2.0)
+Requires-Dist: six (>=1.4)
+
+UNKNOWN
+
+

@@ -1,0 +1,27 @@
+Metadata-Version: 2.1
+Name: python-didl-lite
+Version: 1.1.0
+Summary: DIDL-Lite (Digital Item Declaration Language) tools for Python
+
+Home-page: https://github.com/StevenLooman/python-didl-lite
+Author: Steven Looman
+Author-email: steven.looman@gmail.com
+License: http://www.apache.org/licenses/LICENSE-2.0
+Description: DIDL-Lite (Digital Item Declaration Language) tools for Python
+        =================
+        
+        DIDL-Lite tools for Python to read and write DIDL-Lite-xml.
+        
+        Usage
+        -----
+        
+        See `tests/` for examples on how to use this.
+        
+        Note that this package does _NOT_ do any type checking. Coercion of data types from and to strings must be done by the user of this library.
+        
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3

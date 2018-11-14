@@ -1,0 +1,3 @@
+[console_scripts]
+hangups = hangups.ui.__main__:main
+
