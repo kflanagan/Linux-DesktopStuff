@@ -1,11 +1,19 @@
-rm -Rf homeassistant.backup.old
-mv homeassistant.backup homeassistant.backup.old
-cp -R homeassistant homeassistant.backup
-rm -Rf homeassistant.config.backup.old
-mv homeassistant.config.backup homeassistant.config.backup.old
-cp -R .homeassistant homeassistant.config.backup
-tar -cvf haconfig-backup.tar homeassistant.config.backup
-gpg -r flanagannc@gmail.com -e  haconfig-backup.tar
-rm -f haconfig-backup.tar
-mv haconfig-backup.tar.gpg ha-backups
-mv homeassistant.backup ha-backups
+# rm -Rf /var/homeassistant/homeassistant.backup.old
+#mv /var/homeassistant/homeassistant.backup /var/homeassistant/homeassistant.backup.old
+#cp -R /var/homeassistant /var/homeassistant/homeassistant.backup
+#rm -Rf /var/homeassistant/homeassistant.config.backup.old
+#mv /var/homeassistant/homeassistant.config.backup /var/homeassistant/homeassistant.config.backup.old
+#cp -R /var/homeassistant/homeassistant /var/homeassistant/homeassistant.config.backup
+#tar -cvf /var/homeassistant/haconfig-backup.tar /var/homeassistant/homeassistant.config.backup
+#gpg -r flanagannc@gmail.com -e  /var/homeassistant/haconfig-backup.tar
+#rm -f /var/homeassistant/haconfig-backup.tar
+#mv /var/homeassistant/haconfig-backup.tar.gpg /var/homeassistant/ha-backups
+#mv /var/homeassistant/homeassistant.backup /var/homeassistant/ha-backups
+
+
+tar -cvf /var/homeassistant/homeassistant.backup.tar /var/homeassistant
+gpg -r flanagannc@gmail.com -e  /var/homeassistant/homeassistant.backup.tar
+rm /var/homeassistant/homeassistant.backup.tar
+mv /var/homeassistant/homeassistant.backup.tar.gpg ~kevin/gitrepos/Linux-DesktopStuff
+
+
