@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for a in ./*.ogg; do
+  ffmpeg -i "$a" -qscale:a 0 "${a[@]/%ogg/mp3}"
+done
