@@ -1,4 +1,32 @@
-sudo docker pull homeassistant/home-assistant:latest
-docker stop running container
-docker rename old container
+# Stop the running container
+docker stop home-assistant
+
+# Get the image name 
+docker images -q homeassistant/home-assistant:latest 
+
+# tag old image with the old, so that we can start the new container
+docker tag $(!!) homeassistant/home-assistant:old
+
+# Stop the running container
+docker stop home-assistant
+
+#remove the "latest" tag, if there is more than one tag it'll only remove the tag
+docker rmi homeassistant/home-assistant:latest
+
+# Go get the latest image
+docker pull homeassistant/home-assistant:latest
+
+#remove the old image
+docker rmi homeassistant/home-assistant:old
+
+# Rename the container 
+docker ps -q --filter="name=home-assistant" | docker container rename $(!!) home-asstiant-old
+
+# start the new container
 docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant:latest
+
+
+# Placeholder for the node red container startup
+# docker pull nodered/node-red-docker
+# docker ps -q --filter="name=nodered" | docker container rename $(!!) nodered-old
+# docker run -d -it -p 1880:1880 --restart always --name mynodered nodered/node-red-docker
