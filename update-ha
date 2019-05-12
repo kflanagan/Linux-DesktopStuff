@@ -1,14 +1,36 @@
 # Stop the running container
 docker stop home-assistant
 
-# Get the image name 
-docker images -q homeassistant/home-assistant:latest 
+# Get the image name
+docker images -q homeassistant/home-assistant:latest
 
 # tag old image with the old, so that we can start the new container
 docker tag $(!!) homeassistant/home-assistant:old
 
-# Stop the running container
-docker stop home-assistant
+# List of all docker containers
+# look to see that only the one homeassistant one is stopped
+docker container ls -a
+
+
+# If the coast is clear, prune
+docker container prune
+
+
+
+# Find the container ID for the one that is running homeassistant
+docker container ls -a  | grep -i  homeassistant
+
+
+
+
+# remove the container that uses the old image
+docker container rm 
+
+# Rename the container, probably not needed now
+# docker ps -q --filter="name=home-assistant" | docker container rename $(!!) ho$
+# docker container rename home-assistant home-asstiant-old
+
+
 
 #remove the "latest" tag, if there is more than one tag it'll only remove the tag
 docker rmi homeassistant/home-assistant:latest
@@ -16,11 +38,6 @@ docker rmi homeassistant/home-assistant:latest
 # Go get the latest image
 docker pull homeassistant/home-assistant:latest
 
-#remove the old image
-docker rmi homeassistant/home-assistant:old
-
-# Rename the container 
-docker ps -q --filter="name=home-assistant" | docker container rename $(!!) home-asstiant-old
 
 # start the new container
 docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant:latest
