@@ -7,5 +7,5 @@ Home Assistant, mostly documented elsewhere
 	sudo docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
 
 Create a MySQL instance for the NC Voter Database 
-	sudo mkdir /var/HCVoterDB
+	sudo mkdir /var/NCVoterDB
 	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
