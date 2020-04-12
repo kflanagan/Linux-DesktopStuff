@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for a in ./*.mkv; do
+  ffmpeg -i "$a" -qscale:a 0 "${a[@]/%mkv/mp3}"
+done

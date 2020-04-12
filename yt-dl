@@ -1,0 +1,14 @@
+# shopt -s expand_aliases
+# create an alias
+# source ~/.bash_aliases
+# alias yt='docker run --rm -u $(id -u):$(id -g) -v $PWD:/data vimagick/youtube-dl'
+alias yt='sudo docker run --rm -u 0:0 -v $PWD:/data vimagick/youtube-dl'
+
+# list all formats
+# $ yt -F %1%
+
+# download it
+yt %1%
+
+# play it
+# $ vlc *-nVjsGKrE6E8.mp4
