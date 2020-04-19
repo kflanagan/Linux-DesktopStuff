@@ -1,5 +1,5 @@
 bluetoothctl << EOF
 power on
 agent on
-connect C4:45:67:1C:8D:03
+connect 50:1A:A5:F8:77:C8
 EOF

@@ -1,0 +1,5 @@
+bluetoothctl << EOF
+disconnect 50:1A:A5:F8:77:C8
+agent off
+power off
+EOF

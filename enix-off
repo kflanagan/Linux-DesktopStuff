@@ -1,5 +1,5 @@
 bluetoothctl << EOF
-disconnect C4:45:67:1C:8D:03
+disconnect E8:07:BF:EB:10:A9
 agent off
 power off
 EOF

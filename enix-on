@@ -1,0 +1,5 @@
+bluetoothctl << EOF
+power on
+agent on
+connect E8:07:BF:EB:10:A9
+EOF
