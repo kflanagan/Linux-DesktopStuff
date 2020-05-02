@@ -1,5 +1,5 @@
 bluetoothctl << EOF
 disconnect E8:07:BF:EB:10:A9
-agent off
-power off
+#agent off
+#power off
 EOF
