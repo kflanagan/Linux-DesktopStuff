@@ -1,11 +1,34 @@
-Portainer is a docker container to manage docker
+# Portainer is a docker container to manage docker
 	sudo docker volume create portainer_data
 	sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
 
-Home Assistant, mostly documented elsewhere
-	sudo docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
 
-Create a MySQL instance for the NC Voter Database 
+# Create a MySQL instance for the NC Voter Database 
 	sudo mkdir /var/NCVoterDB
 	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
+
+
+# https://hub.docker.com/r/grafana/grafana
+docker pull grafana/grafana
+docker run -d --name=grafana --restart=unless-stopped -v /etc/localtime:/etc/localtime:ro  -v /home/ha:/hadata -p 3000:3000 grafana/grafana
+
+
+# Home Assistant 
+docker run --init -d \
+  --name homeassistant \
+  --restart=unless-stopped \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /home/ha:/config \
+  --network=host \
+  homeassistant/raspberrypi4-homeassistant:stable
+
+# Node Red 
+# Also has Home Assistant data mounted for the log files
+docker run  -d -p 1880:1880 -v node_red_data:/data -v /home/ha:/hadata --name mynodered nodered/node-red
+
+
+# Portainer, to manage other containers
+# https://documentation.portainer.io/v2.0/deploy/ceinstalldocker/
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
