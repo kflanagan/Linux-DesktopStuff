@@ -1,18 +1,39 @@
-Portainer is a docker container to manage docker
+# Portainer is a docker container to manage docker
 	sudo docker volume create portainer_data
 	sudo docker run -d -p 9000:9000 --name portainer --restart always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer
 
 
-Home Assistant, mostly documented elsewhere
+# Home Assistant, mostly documented elsewhere
+	mkdir /var/homeassistant
 	sudo docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
 
-Create a MySQL instance for the NC Voter Database 
+# Create a MySQL instance for the NC Voter Database 
 	sudo mkdir /var/NCVoterDB
 	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
 
-To install plex in a docker container on Raspberry Pi 
+# To install plex in a docker container on Raspberry Pi 
 
 mkdir -p ~/media/plex/{config,data}
 
 docker run   -d   --name plex   --net bridge   -p 32400:32400   --restart always   --volume plex_config:/media/plex/config:   --volume plex_data:/media/plex/data   ghcr.io/linuxserver/plex
 
+
+
+# Create a MySQL instance for the NC Voter Database 
+	sudo mkdir /var/NCVoterDB
+	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
+
+
+# https://hub.docker.com/r/grafana/grafana
+docker pull grafana/grafana
+docker run -d --name=grafana --restart=unless-stopped -v /etc/localtime:/etc/localtime:ro  -v /home/ha:/hadata -p 3000:3000 grafana/grafana
+
+
+
+# Node Red 
+# Also has Home Assistant data mounted for the log files
+docker run  -d -p 1880:1880 -v node_red_data:/data -v /home/ha:/hadata --name mynodered nodered/node-red
+
+
+#Apache
+docker run -dit --name my-apache-app -p 8080:80 -v "$PWD":/usr/local/apache2/htdocs/ httpd:2.4

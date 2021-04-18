@@ -1,0 +1,6 @@
+
+docker stop homeassistant
+
+tar -czf ./home-assistant.tgz /home/ha
+
+docker start homeassistant
