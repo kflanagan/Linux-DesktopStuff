@@ -9,3 +9,10 @@ Home Assistant, mostly documented elsewhere
 Create a MySQL instance for the NC Voter Database 
 	sudo mkdir /var/NCVoterDB
 	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
+
+To install plex in a docker container on Raspberry Pi 
+
+mkdir -p ~/media/plex/{config,data}
+
+docker run   -d   --name plex   --net bridge   -p 32400:32400   --restart always   --volume plex_config:/media/plex/config:   --volume plex_data:/media/plex/data   ghcr.io/linuxserver/plex
+
