@@ -5,6 +5,7 @@
 # To update portainer
 	sudo docker ps
 	sudo docker stop portainer
+	docker rm the container from the PS command
 	sudo docker images
 	sudo docker rmi -- The image number of the portainer image
 	Do the docker run from above
