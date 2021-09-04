@@ -12,6 +12,7 @@
 
 # Home Assistant, mostly documented elsewhere
 # Fresh installation
+# First you need to make /home/ha
 	mkdir /var/ha
 	sudo docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
 
