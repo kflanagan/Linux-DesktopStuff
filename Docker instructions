@@ -1,3 +1,7 @@
+# If you get the error installing containers from Docker that it can't srart containers, see this page
+# https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg5968593.html
+apt install linux-modules-extra-raspi
+
 # Portainer is a docker container to manage docker
 	sudo docker volume create portainer_data
 	sudo docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
@@ -10,11 +14,25 @@
 	sudo docker rmi -- The image number of the portainer image
 	Do the docker run from above
 
+# Pihole
+	# first you need to stop Ubuntu's DNS provider
+	# https://www.linuxuprising.com/2020/07/ubuntu-how-to-free-up-port-53-used-by.html
+	# I set it to use 8.8.8.8 for DNS provider
+	# This video was really helpful
+	# https://www.youtube.com/watch?v=dH3DdLy574M&t=160s&ab_channel=NetworkChuck
+	# There is a script just called "pihole" in this repo, it's functional, if you already have the container it will fail, so remove it first
+	# This was the image I used, and there are good directions here
+	# https://hub.docker.com/r/pihole/pihole
+	# create a directory, I used /home/pi-hole	
+	# See the shell script in this directory, pihole.  Copy it to that directory, run it from there.
+
+
 # Home Assistant, mostly documented elsewhere
 # Fresh installation
 # First you need to make /home/ha
 	mkdir /var/ha
-	sudo docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
+	sudo docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock \
+  homeassistant/home-assistant  -v  /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
 
 #Upgrades
 
@@ -51,7 +69,8 @@ docker run -d --name=grafana --restart=unless-stopped -v /etc/localtime:/etc/loc
 
 # Node Red 
 # Also has Home Assistant data mounted for the log files
-docker run  -d -p 1880:1880 -v node_red_data:/data -v /home/ha:/hadata --name mynodered nodered/node-red
+
+docker run -it -p 1880:1880 -v myNodeREDdata:/data/nodered --name mynodered nodered/node-red
 
 
 #Apache
