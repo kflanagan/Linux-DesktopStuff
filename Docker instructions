@@ -31,8 +31,8 @@ apt install linux-modules-extra-raspi
 # Fresh installation
 # First you need to make /home/ha
 	mkdir /var/ha
-	sudo docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock \
-  homeassistant/home-assistant  -v  /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
+	docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock  -v  /etc/localtime:/etc/localtime:ro -v /media/music:/media --net=host homeassistant/home-assistant
+
 
 #Upgrades
 
