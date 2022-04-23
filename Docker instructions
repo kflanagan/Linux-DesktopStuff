@@ -1,7 +1,13 @@
-# adding a comment for ssh key test
+# This link will get you going with SSH keys and github for pushing updates
+https://linuxkamarada.com/en/2019/07/14/using-git-with-ssh-keys/#.YhEAZ3XMLHU
+
+
 # If you get the error installing containers from Docker that it can't srart containers, see this page
 # https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg5968593.html
 apt install linux-modules-extra-raspi
+
+
+
 
 # Portainer is a docker container to manage docker
 	sudo docker volume create portainer_data
