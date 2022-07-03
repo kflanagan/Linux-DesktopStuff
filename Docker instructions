@@ -55,6 +55,12 @@ apt install linux-modules-extra-raspi
 	sudo mkdir /var/NCVoterDB
 	sudo docker run -d -p 3306 --name NCVoterDB --restart always -v /var/NCVoterDB -v /etc/localtime:/etc/localtime:ro mysql/mysql
 
+#Creat a mysql instance, set up for Home Assistant DB
+#	docker run --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:tag
+
+
+
+
 # To install plex in a docker container on Raspberry Pi 
 
 mkdir -p ~/media/plex/{config,data}
