@@ -7,6 +7,16 @@ https://linuxkamarada.com/en/2019/07/14/using-git-with-ssh-keys/#.YhEAZ3XMLHU
 apt install linux-modules-extra-raspi
 
 
+# dashy
+
+# Suggested config, but until I can work out where the config file goes I removed the -v line
+docker run -d \
+  -p 8080:80 \
+  -v /home/dashy/my-conf.yml:/app/public/conf.yml \
+  --name my-dashboard \
+  --restart=always \
+  lissy93/dashy:latest
+
 
 
 # Portainer is a docker container to manage docker
