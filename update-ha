@@ -32,7 +32,8 @@ docker container ls -a
 # start the new container
 echo " "
 echo "Pull and start latest image and new container"
-docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant:latest
+docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock  -v  /etc/localtime:/etc/localtime:ro -v /media/music:/media --net=host homeassistant/home-assistant
+
 
 # List of all docker containers
 echo " "

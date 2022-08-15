@@ -44,6 +44,9 @@ docker run -d \
 	# See the shell script in this directory, pihole.  Copy it to that directory, run it from there.
 
 
+docker pull pihole/pihole
+
+
 # Home Assistant, mostly documented elsewhere
 # Fresh installation
 # First you need to make /home/ha
