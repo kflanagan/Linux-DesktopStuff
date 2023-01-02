@@ -1,0 +1,9 @@
+You have successfully logged in.
+If you wish to copy your credentials to a server, they have been saved to:
+/root/.cloudflared/cert.pem
+root@Pi:/home/kevin# cloudflared tunnel create ^C
+root@Pi:/home/kevin# cd
+root@Pi:~# cloudflared tunnel create kmf1
+Tunnel credentials written to /root/.cloudflared/8941cef9-7677-4322-9ba8-f02519298351.json. cloudflared chose this file based on where your origin certificate was found. Keep this file secret. To revoke these credentials, delete the tunnel.
+
+Created tunnel kmf1 with id 8941cef9-7677-4322-9ba8-f02519298351
