@@ -17,6 +17,12 @@ docker run -d \
   --restart=always \
   lissy93/dashy:latest
 
+# AudioBookShelf
+# https://www.audiobookshelf.org/
+docker run -d --name="audiobookshelf" -e AUDIOBOOKSHELF_UID=1005 -e AUDIOBOOKSHELF_GID=1005 -p 13378:80 -v /home/audiobookshelf>
+/home/audiobookshelf/metadata:/metadata -v /home/audiobookshelf/audiobooks:/audiobooks -v /home/audiobookshelf/podcasts:/podcas>
+
+
 
 
 # Portainer is a docker container to manage docker
