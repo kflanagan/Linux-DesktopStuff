@@ -19,9 +19,21 @@ docker run -d \
 
 # AudioBookShelf
 # https://www.audiobookshelf.org/
-docker run -d --name="audiobookshelf" -e AUDIOBOOKSHELF_UID=1005 -e AUDIOBOOKSHELF_GID=1005 -p 13378:80 -v /home/audiobookshelf>
-/home/audiobookshelf/metadata:/metadata -v /home/audiobookshelf/audiobooks:/audiobooks -v /home/audiobookshelf/podcasts:/podcas>
+docker run -d   -p 13378:80   -v /media/audiobookshelf/config:/config   -v /media/audiobookshelf/metadata:/metadata   -v /media/audiobookshelf/audiobooks:/audiobooks   -v /media/audiobookshelf/podcasts:/podcasts   --name audiobookshelf   --rm ghcr.io/advplyr/audiobookshelf
 
+
+
+# Jellyfin
+
+docker run -d \
+ --name jellyfin \
+ --user uid:gid \
+ --net=host \
+ --volume /media/jellyfin/config:/config \ 
+ --volume /media/jellyfin/cache:/cache \ 
+ --mount type=bind,source=/media/plex,target=/media \
+ --restart=unless-stopped \
+ jellyfin/jellyfin
 
 
 
@@ -84,7 +96,9 @@ docker pull pihole/pihole
 
 mkdir -p ~/media/plex/{config,data}
 
-docker run   -d   --name plex   --net bridge   -p 32400:32400   --restart always   --volume plex_config:/media/plex/config:   --volume plex_data:/media/plex/data   ghcr.io/linuxserver/plex
+
+docker run -d   --name=plex   --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v /media/plex/config:/config   -v /media/plex/music:/music   -v /media/plex/MusicVideos:/MusicVideos   --restart unless-stopped  lscr.io/linuxserver/plex:latest
+
 
 
 
