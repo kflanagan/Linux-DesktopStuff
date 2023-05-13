@@ -1,1 +1,1 @@
-pi -fstype=nfs4 pi:/media
+envy -fstype=nfs4 envy:/media/plex
