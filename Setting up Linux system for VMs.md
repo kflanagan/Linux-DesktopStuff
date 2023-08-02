@@ -1,4 +1,4 @@
-# How I set my compyters up to run Virtual machines on Linux
+# How I set my computers up to run Virtual machines on Linux
 
 1. Pick a Linux distribution that works for you, I am using Ubuntu
 2. Install libvirtd
@@ -10,4 +10,4 @@
 4. Connect VMM to your local machine under New Connection
 
 
-Start building VMs!
+Start building VMs! 
