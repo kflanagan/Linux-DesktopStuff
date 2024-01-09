@@ -1,0 +1,12 @@
+#!/bin/bash
+#ffmpeg -ss 00:00:23 -i 81a.mkv -t 00:00:33  81b.mkv
+
+
+read -p "Start time in format of 00:00:00: " start
+read -p "End time in format of 00:00:00: " finish
+read -p "File to trim: " file
+read -p "Output file: " output
+
+
+ffmpeg -ss $start -i $file -t $finish $output
+
