@@ -17,7 +17,7 @@
 ## AudioBookShelf
 [Audiobookshelf home](https://www.audiobookshelf.org/)
 
-	docker run -d   -p 13378:80   -v /media/audiobookshelf/config:/config   -v /media/audiobookshelf/metadata:/metadata   -v /media/audiobookshelf/audiobooks:/audiobooks   -v /media/audiobookshelf/podcasts:/podcasts   --name audiobookshelf   --rm ghcr.io/advplyr/audiobookshelf
+	docker run -d   -p 13378:80   -v /media2/audiobookshelf/config:/config   -v /media2/audiobookshelf/metadata:/metadata   -v /media2/audiobookshelf/audiobooks:/audiobooks   -v /media2/audiobookshelf/podcasts:/podcasts   --name audiobookshelf   --rm ghcr.io/advplyr/audiobookshelf
 
 
 
