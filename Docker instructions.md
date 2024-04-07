@@ -6,18 +6,16 @@
 ## If you get the error installing containers from Docker that it can't srart containers, see this page
 [Ubuntu default DNS](https://www.mail-archive.com/ubuntu-bugs@lists.ubuntu.com/msg5968593.html)
 
-
-
 ## Dashy
 
  Suggested config, but until I can work out where the config file goes I removed the -v line
-	
+
 	docker run -d -p 8080:80 -v /home/dashy/my-conf.yml:/app/public/conf.yml --name my-dashboard --restart=always lissy93/dashy:latest
 
 ## AudioBookShelf
 [Audiobookshelf home](https://www.audiobookshelf.org/)
 
-	docker run -d   -p 13378:80   -v /media2/audiobookshelf/config:/config   -v /media2/audiobookshelf/metadata:/metadata   -v /media2/audiobookshelf/audiobooks:/audiobooks   -v /media2/audiobookshelf/podcasts:/podcasts   --name audiobookshelf   --rm ghcr.io/advplyr/audiobookshelf
+ 	docker run -d  --restart=always -p 13378:80   -v /media2/audiobookshelf/config:/config   -v /media2/audiobookshelf/metadata:/metadata   -v /media2/audiobookshelf/audiobooks:/audiobooks   -v /media2/audiobookshelf/podcasts:/podcasts   --name audiobookshelf ghcr.io/advplyr/audiobookshelf
 
 
 
