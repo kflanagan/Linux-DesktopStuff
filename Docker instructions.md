@@ -12,12 +12,37 @@
 
 	docker run -d -p 8080:80 -v /home/dashy/my-conf.yml:/app/public/conf.yml --name my-dashboard --restart=always lissy93/dashy:latest
 
+## StirlingPDF
+
+[StirlingPDF](https://hub.docker.com/r/frooodle/s-pdf)
+
+A web based tool that lets you convert and much more those annoying as hell documents so you can fill them in, add images of signatures etc.
+
+Create /opt/stirlingpdf
+
+	docker run -d \
+  	-p 8080:8080 \
+  	-v /opt/stirlingpdf/trainingData:/usr/share/tessdata \
+  	-v /opt/stirlingpdf/extraConfigs:/configs \
+  	-v /opt/stirlingpdf/logs:/logs \
+  	-e DOCKER_ENABLE_SECURITY=false \
+  	-e INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false \
+  	-e LANGS=en_GB \
+  	--name stirling-pdf \
+  	frooodle/s-pdf:latest
+
+Then just go to port 8080 on the server. 
+
 ## AudioBookShelf
 [Audiobookshelf home](https://www.audiobookshelf.org/)
 
  	docker run -d  --restart=always -p 13378:80   -v /media2/audiobookshelf/config:/config   -v /media2/audiobookshelf/metadata:/metadata   -v /media2/audiobookshelf/audiobooks:/audiobooks   -v /media2/audiobookshelf/podcasts:/podcasts   --name audiobookshelf ghcr.io/advplyr/audiobookshelf
 
+## Music Assistant
 
+sudo docker run -d --network host --privileged -v /mediaserver:/data ghcr.io/music-assistant/server
+
+Runs on http://envy:8095/#/home
 
 ## Jellyfin
 
