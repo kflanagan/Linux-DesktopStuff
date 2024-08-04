@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Create the directory for the volume
+sudo docker run -d \ 
+--network host --privileged \
+-v /mediaserver:/data ghcr.io/music-assistant/server

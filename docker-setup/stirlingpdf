@@ -1,0 +1,17 @@
+#!/bin/bash
+#
+# 
+# Set up to create user and directories if they don't exist is a to-do
+
+docker run -d \
+        -p 8081:8080 \
+        -v /opt/stirlingpdf/trainingData:/usr/share/tessdata \
+        -v /opt/stirlingpdf/extraConfigs:/configs \
+        -v /opt/stirlingpdf/logs:/logs \
+        -e DOCKER_ENABLE_SECURITY=false \
+        -e INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false \
+        -e LANGS=en_GB \
+        -e PUID=1002 \
+        -e PGID=1002 \
+        --name stirling-pdf \
+        frooodle/s-pdf:latest
