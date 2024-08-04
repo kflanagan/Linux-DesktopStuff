@@ -113,8 +113,7 @@ I have not made this work yet, but still want to
 
 - Then the docker run
 
-		docker run -d   --name=plex   --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v /media/plex/config:/config   -v /media/plex/music:/music   -v /media/plex/MusicVideos:/MusicVideos   --restart unless-stopped  lscr.io/linuxserver/plex:latest
-
+		docker run -d   --name=plex   --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v /media2/plex/config:/config   -v /media2/plex/music:/music   -v /media2/MusicVideos:/MusicVideos  -v /media2/Movies:/movies -v /media2/TV:/TV --restart unless-stopped  lscr.io/linuxserver/plex:latest
 
 
 
