@@ -22,6 +22,8 @@ Create /opt/stirlingpdf
 
 	docker run -d \
   	-p 8080:8080 \
+	-e PUID=1002 \
+	 -e PGID=1002 \ 
   	-v /opt/stirlingpdf/trainingData:/usr/share/tessdata \
   	-v /opt/stirlingpdf/extraConfigs:/configs \
   	-v /opt/stirlingpdf/logs:/logs \
@@ -40,7 +42,8 @@ Then just go to port 8080 on the server.
 
 ## Music Assistant
 
-sudo docker run -d --network host --privileged -v /mediaserver:/data ghcr.io/music-assistant/server
+sudo docker run -d --network host --privileged \
+-v /mediaserver:/data ghcr.io/music-assistant/server
 
 Runs on http://envy:8095/#/home
 
@@ -82,7 +85,10 @@ There is a script just called "pihole" in this repo, it's functional, if you alr
 		mkdir /home/ha
 - Docker run line for my config, paths are specific
 
-		docker run -d --name="home-assistant" --restart always -v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock  -v  /etc/localtime:/etc/localtime:ro -v /media/music:/media --net=host homeassistant/home-assistant
+		docker run -d --name="home-assistant" --restart always \
+-v /home/ha:/config -v /var/run/docker.sock:/var/run/docker.sock  \
+-v  /etc/localtime:/etc/localtime:ro -v /media/music:/media \
+--net=host homeassistant/home-assistant
 
 
 ### Upgrades

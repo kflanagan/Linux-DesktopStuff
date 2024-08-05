@@ -2,7 +2,7 @@
 
 
 # Add the HA user if it doesn't exist 
-container_name="MusicAssistant"
+container_name="audiobookshelf"
 useradd $container_name || echo "User already exists."
 
 
@@ -37,8 +37,7 @@ else
         
         echo "$container_name is not running $(docker rm $container_name)"
 # start the container
-        docker run -d  --restart=always -p 8095:8095 -v $MediaDir/data:/data \
-    --name $container_name ghcr.io/music-assistant/server
+        docker run -d  --restart=always -p 13378:80   -v $MediaDir/config:/config -v $MediaDir/metadata:/metadata   -v $MediaDir/audiobooks:/audiobooks -v $MediaDir/podcasts:/podcasts   --name audiobookshelf ghcr.io/advplyr/audiobookshelf
     
     
     fi
