@@ -15,6 +15,7 @@
 ## StirlingPDF
 
 [StirlingPDF](https://hub.docker.com/r/frooodle/s-pdf)
+[Full instal script](./docker-setup/stirlingpdf)
 
 A web based tool that lets you convert and much more those annoying as hell documents so you can fill them in, add images of signatures etc.
 
@@ -37,10 +38,11 @@ Then just go to port 8080 on the server.
 
 ## AudioBookShelf
 [Audiobookshelf home](https://www.audiobookshelf.org/)
-
+[AudioBookshelf install script](./docker-setup/AudioBookshelf)
  	docker run -d  --restart=always -p 13378:80   -v /media2/audiobookshelf/config:/config   -v /media2/audiobookshelf/metadata:/metadata   -v /media2/audiobookshelf/audiobooks:/audiobooks   -v /media2/audiobookshelf/podcasts:/podcasts   --name audiobookshelf ghcr.io/advplyr/audiobookshelf
 
 ## Music Assistant
+[Music Assistant install script](./docker-setup/MusicAssistant)
 
 sudo docker run -d --network host --privileged \
 -v /mediaserver:/data ghcr.io/music-assistant/server
@@ -54,6 +56,8 @@ Runs on http://envy:8095/#/home
 
 
 ## Portainer is a docker container to manage docker
+[Portainer install script](./docker-setup/portainer)
+
 	sudo docker volume create portainer_data
 	sudo docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
 
@@ -80,6 +84,8 @@ There is a script just called "pihole" in this repo, it's functional, if you alr
 
 ## Home Assistant, mostly documented elsewhere
 ### Fresh installation
+[Home Assistant install script](./docker-setup/HomeAssistant)
+
 - First you need to make /home/ha
 
 		mkdir /home/ha
@@ -112,6 +118,7 @@ I have not made this work yet, but still want to
 
 
 ## To install plex in a docker container
+[Plex install script](./docker-setup/Plex)
 
 - Create the directories
 

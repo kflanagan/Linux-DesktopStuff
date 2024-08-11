@@ -65,7 +65,7 @@ else
 # volume info is specific to each container, so that will need to be edited 
 #############################
 # start the container
-docker run -d   --name=$container_name   --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v $BaseDir/config:/config   -v $BaseDir/music:/music   -v $BaseDir/MusicVideos:/MusicVideos  -v $BaseDir/Movies:/Movies -v $BaseDir/TV:/TV -v $BaseDir/stuff:/stuff -v $BaseDir/transcode/temp:/transcode --restart unless-stopped  lscr.io/linuxserver/plex:latest
+docker run -d   --name=$container_name  --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v $BaseDir/config:/config   -v $BaseDir/music:/music   -v $BaseDir/MusicVideos:/MusicVideos  -v $BaseDir/Movies:/Movies -v $BaseDir/TV:/TV -v $BaseDir/stuff:/stuff -v $BaseDir/transcode/temp:/transcode --restart unless-stopped  lscr.io/linuxserver/plex:latest
 
       
     fi
