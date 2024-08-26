@@ -12,7 +12,6 @@ services:
     privileged: true
     network_mode: host
 
-
   audiobookshelf:
     container_name:  audiobookshelf
     image: ghcr.io/advplyr/audiobookshelf
@@ -26,6 +25,57 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
+
+  musicassistant:
+    container_name: musicassistant
+    image: ghcr.io/music-assistant/server
+    volumes:
+      - /media2/musicassistant/data:/data
+    ports:
+      - "8095:8095"
+    privileged: true
+    restart: unless-stopped
+    network_mode: host
+
+  plex:
+    container_name: plex
+    network_mode: host
+    volumes:
+      - /media2/plex/config:/config
+      - /media2/plex//music:/music 
+      - /media2/plex/MusicVideos:/MusicVideos
+      - /media2/plex/Movies:/Movies
+      - /media2/plex/TV:/TV
+      - /media2/plex/stuff:/stuff
+      - /media2/plex/transcode/temp:/transcode        
+    restart: unless-stopped  
+    image: lscr.io/linuxserver/plex:latest
+  stirling-pdf:
+    image: frooodle/s-pdf:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - /opt/stirlingpdf/trainingData:/usr/share/tesseract-ocr/5/tessdata #Required for extra OCR languages
+      - /opt/stirlingpdf/extraConfigs:/configs
+      - /opt/stirlingpdf/customFiles:/customFiles/
+      - /opt/stirlingpdf/logs:/logs/
+    environment:
+      - DOCKER_ENABLE_SECURITY=false
+
+  portainer:
+    container_name: portainer
+    network_mode: host
+    image: portainer/portainer-ce:latest
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    ports:
+      - "9000:9000"
+      - "9443:9443"
+    restart: unless-stopped
+
+
+
 
 
 
