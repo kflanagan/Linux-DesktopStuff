@@ -1,0 +1,83 @@
+services:
+  plex:
+
+    container_name: "plex"
+
+    entrypoint:
+      - "/init"
+
+    environment:
+      - "PLEX_CLAIM="
+      - "PUID=1001"
+      - "PGID=1001"
+      - "TZ=Etc/UTC"
+      - "VERSION=docker"
+      - "PATH=/lsiopy/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      - "HOME=/root"
+      - "LANGUAGE=en_US.UTF-8"
+      - "LANG=en_US.UTF-8"
+      - "TERM=xterm"
+      - "S6_CMD_WAIT_FOR_SERVICES_MAXTIME=0"
+      - "S6_VERBOSITY=1"
+      - "S6_STAGE2_HOOK=/docker-mods"
+      - "VIRTUAL_ENV=/lsiopy"
+      - "LSIO_FIRST_PARTY=true"
+      - "NVIDIA_DRIVER_CAPABILITIES=compute,video,utility"
+      - "DEBIAN_FRONTEND=noninteractive"
+      - "PLEX_DOWNLOAD=https://downloads.plex.tv/plex-media-server-new"
+      - "PLEX_ARCH=amd64"
+      - "PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR=/config/Library/Application Support"
+      - "PLEX_MEDIA_SERVER_HOME=/usr/lib/plexmediaserver"
+      - "PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS=6"
+      - "PLEX_MEDIA_SERVER_USER=abc"
+      - "PLEX_MEDIA_SERVER_INFO_VENDOR=Docker"
+      - "PLEX_MEDIA_SERVER_INFO_DEVICE=Docker Container (LinuxServer.io)"
+
+    hostname: "Pavilion"
+
+    image: "lscr.io/linuxserver/plex:latest"
+
+    ipc: "private"
+
+    labels:
+      build_version: "Linuxserver.io version:- 1.40.4.8679-424562606-ls224 Build-date:- 2024-07-22T09:27:51+00:00"
+      maintainer: "thelamer"
+      org.opencontainers.image.authors: "linuxserver.io"
+      org.opencontainers.image.created: "2024-07-22T09:27:51+00:00"
+      org.opencontainers.image.description: "[Plex](https://plex.tv) organizes video, music and photos\
+        \ from personal media libraries and streams them to smart TVs, streaming boxes and mobile devices.\
+        \ This container is packaged as a standalone Plex Media Server. Straightforward design and bulk\
+        \ actions mean getting things done faster."
+      org.opencontainers.image.documentation: "https://docs.linuxserver.io/images/docker-plex"
+      org.opencontainers.image.licenses: "GPL-3.0-only"
+      org.opencontainers.image.ref.name: "64197c0cf88011c8231984cf6d702b933e2f1428"
+      org.opencontainers.image.revision: "64197c0cf88011c8231984cf6d702b933e2f1428"
+      org.opencontainers.image.source: "https://github.com/linuxserver/docker-plex"
+      org.opencontainers.image.title: "Plex"
+      org.opencontainers.image.url: "https://github.com/linuxserver/docker-plex/packages"
+      org.opencontainers.image.vendor: "linuxserver.io"
+      org.opencontainers.image.version: "1.40.4.8679-424562606-ls224"
+
+    logging:
+      driver: "json-file"
+      options: {}
+
+    network_mode: "host"
+
+    ports:
+      - "32400:32400/tcp"
+
+    restart: "unless-stopped"
+
+    volumes:
+      - "/media2/plex/Movies:/Movies"
+      - "/media2/plex/MusicVideos:/MusicVideos"
+      - "/media2/plex/TV:/TV"
+      - "/media2/plex/config:/config"
+      - "/media2/plex/music:/music"
+      - "/media2/plex/stuff:/stuff"
+      - "/media2/plex/transcode/temp:/transcode"
+
+    working_dir: "/"
+
+version: "3.6"

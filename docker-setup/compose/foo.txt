@@ -1,0 +1,17 @@
+
+
+---
+services: 
+  :
+    image: bar 
+    container_name:  
+    environment:
+      - PUID=
+      - PGID=
+      - TZ=EST
+    #volumes:
+    #  - :
+    #ports:
+    #  - :
+    restart: unless-stopped
+

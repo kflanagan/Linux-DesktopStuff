@@ -34,7 +34,7 @@ fi
 
 #Now we have gathered the info
 docker run -p 8123:8123 -d --name="Home-Assistant" --restart always \
--v $dirname:/config -v /var/run/docker.sock:/var/run/docker.sock  \
+-v /home/ha/:/config -v /var/run/docker.sock:/var/run/docker.sock  \
 -v  /etc/localtime:/etc/localtime:ro -v /media/music:/media \
 -e PUID=$haid     \
 -e PGID=$hagrp     \

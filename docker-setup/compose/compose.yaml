@@ -68,7 +68,7 @@ services:
     image: portainer/portainer-ce:latest
     volumes: 
       - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - /opt/portainer_data:/data
     ports:
       - "9000:9000"
       - "9443:9443"

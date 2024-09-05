@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Full docker container setup, change the two variables here at the top for your basedir
+## - Create a user for the container
+## - Create that users homedir
+## - Create a directory for your volumes
+## - Check to see if the container is running
+### -- If the container isn't running, remove it
+## - Start the container - volume info is specific to each container, so that will need to be edited 
+
+###################################### 
+##The variables here will need to be adjusted for your installation
+container_name="transmission"
+BaseDir=/home/$container_name
+#####################################
+
+
+# Add the user if it doesn't exist 
+useradd $container_name || echo "User already exists."
+
+
+
+# create the directory for the docker volumes if it doesn't exist
+
+if [ ! -d /home/$container_name ];then
+     if ! mkdir /home/$container_name; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $container_name"
+     fi
+fi
+
+# Get the user and group ID for below
+container_id="$(echo $newvar | awk -F "=" '{print $2}' | awk -F "(" '{print$1}')"
+container_grp="$(echo $newvar | awk -F "gid=" '{print $2}' | awk -F "(" '{print$1}')"
+
+
+
+
+# Create the media directory if it doesn't exist
+
+if [ ! -d $BaseDir ];then
+     if ! mkdir $BaseDir; then  
+     echo "Can't make dir: $BaseDir"
+     ## Set the owner and group to be the new ID for that directory you just made
+     chown -R $container_id:$container_grp $basedir
+     fi
+fi
+
+
+# Now see if the container is running already
+
+if [ "$(docker ps -q -f name=$container_name)" ]; then
+    echo "Container $container_name is running, nothing to do"
+
+else
+# if the container isn't running, remove it 
+    echo "Container $container_name is not running."
+    if [ "!$(docker container inspect $container_name > /dev/null 2>&1)" ];
+	then
+echo "$container_name is not running $(docker rm $container_name)"
+
+#############################
+# it seems that docker run command doesn't like variables for PUID and PGID, 
+# make them the same as the user you created above
+#
+# volume info is specific to each container, so that will need to be edited 
+#############################
+# start the container
+# docker run -d   --name=$container_name  --net=host   -e PUID=1001   -e PGID=1001   -e TZ=Etc/UTC   -e VERSION=docker   -e PLEX_CLAIM= `#optional`   -v $BaseDir/config:/config   -v $BaseDir/music:/music   -v $BaseDir/MusicVideos:/MusicVideos  -v $BaseDir/Movies:/Movies -v $BaseDir/TV:/TV -v $BaseDir/stuff:/stuff -v $BaseDir/transcode/temp:/transcode --restart unless-stopped  lscr.io/linuxserver/plex:latest
+
+      
+    fi
+fi
+
+
+
+

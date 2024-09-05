@@ -1,0 +1,89 @@
+#!/bin/bash
+
+#!/bin/bash
+# Need to get input first for the product name
+# product
+# UID
+# GID
+# image
+# Volume source and target
+# port
+##############################
+echo " This script will create a user, and a directory for home assistant, then build the docker run command from that"
+# read -p "Any key to continue or ^C to exit"
+
+read -p Container product are you settting up: product
+echo "We will create user, homedir and set owners for $product"
+read -p "Any key to continue or ^C to exit"
+
+# Add the user if it doesn't exist 
+echo "Create user account"
+user=$product
+useradd $user || echo "User already exists."
+
+
+
+# create the product directory for the docker volume if it doesn't exist
+echo "Create the product home directory if it doesn't exist"
+dirName=/home/$user
+if [ ! -d $dirName ];then
+     if ! mkdir $dirName; then 
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+# Get the user and group ID for below
+userid=$(id -u $user)
+groupid=$(id -G $user)
+
+# set user and group owner
+echo "Setting ownership of home directory"
+if [ ! -d $haid ];then
+     if ! chown -R $userid:$groupid $dirName; 
+     echo "Can't set owner: $dirName"
+     fi
+fi
+#######################################
+
+
+
+########  Build a compose.yaml for the prodcut based on inputss
+# Define constants
+OutFileName="compose.yaml"
+# Function to check if the file exists
+check_file_existence() {
+    if [ -f "$OutFileName" ]; then
+        echo "File $OutFileName already exists."
+        exit 1
+    fi
+}
+# Main function
+main() {
+    check_file_existence "$OutFileName"
+    echo "Creating Compose file"
+
+cat <<EOF >$OutFileName
+
+
+---
+services: 
+  $product:
+    image: $image 
+    container_name: $product 
+    environment:
+      - PUID=$userid
+      - PGID=$groupid
+      - TZ=EST
+    #volumes:
+    #  - $srclocation:$targetlocation
+    #ports:
+    #  - $srcport:$destport
+    restart: unless-stopped
+
+EOF
+
+
+    echo "A compose has been written to $OutFileName"
+}
+# Call the main function
+main
