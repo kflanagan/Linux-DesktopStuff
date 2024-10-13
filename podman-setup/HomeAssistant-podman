@@ -1,0 +1,38 @@
+#!/bin/bash
+echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
+read -p "Any key to continue or ^C to exit"
+
+
+
+
+# Add the HA user if it doesn't exist 
+hauser="ha"
+useradd $hauser || echo "User already exists."
+
+
+
+# create the ha directory for the podman volume if it doesn't exist
+dirName=/home/ha
+if [ ! -d $dirName ];then
+     if ! mkdir $dirName; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+# Get the user and group ID for below
+haid="$(echo $newvar | awk -F "=" '{print $2}' | awk -F "(" '{print$1}')"
+hagrp="$(echo $newvar | awk -F "gid=" '{print $2}' | awk -F "(" '{print$1}')"
+
+
+if [ ! -d $haid ];then
+     if ! chown -R $haid:$hagrp $dirName; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+
+
+#Now we have gathered the info
+podman run -p 8123:8123 -d --name="Home-Assistant" --restart always\
+ -v /home/ha:/config:Z   -v  /etc/localtime:/etc/localtime:ro -v /media/music:/media\ 
+-e PUID=$haif -e PGID=$hagrp --net=host homeassistant/home-assistant

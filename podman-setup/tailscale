@@ -1,0 +1,8 @@
+#! /bin/bash
+#podman pull ghcr.io/tailscale/tailscale:latest
+#podman run tailscale --ts_hostname=pavilion  -ts_authkey=tskey-auth-kyfxFTwsXd11CNTRL-Srqi7kFh3n2tkkc9ExfSm2YvKCyTQ7ve 
+
+
+#podman run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --cap-add=NET_ADMIN --cap-add=NET_RAW --env TS_AUTHKEY=tskey-auth-kyfxFTwsXd11CNTRL-Srqi7kFh3n2tkkc9ExfSm2YvKCyTQ7ve,TS_HOSTNAME=PavilionTail tailscale/tailscale
+
+podman run -d --name=tailscaled -v /var/lib:/var/lib -v /dev/net/tun:/dev/net/tun --network=host --cap-add=NET_ADMIN --cap-add=NET_RAW --env TS_HOSTNAME=PavilionTail tailscale/tailscale

@@ -1,0 +1,58 @@
+#!/bin/bash
+
+
+# Add the container user if it doesn't exist 
+container_name="adguard"
+useradd $container_name || echo "User already exists."
+
+
+
+# create the ha directory for the docker volumes if it doesn't exist
+
+if [ ! -d /home/$container_name ];then
+     if ! mkdir /home/$container_name; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $container_name"
+     fi
+fi
+
+
+
+# Now see if the container is running already
+
+if [ "$(podman ps -q -f name=$container_name)" ]; then
+    echo "Container $container_name is running, nothing to do"
+
+else
+# if the container isn't running, remove it and issue the run again
+    echo "Container $container_name is not running."
+    if [ "!$(podman container inspect $container_name > /dev/null 2>&1)" ]; then
+        
+        echo "$container_name is not running $(docker rm $container_name)"
+# start the container
+
+podman run --name adguardhome\
+    --restart unless-stopped\
+    -v /home/ha/$container_name/work:/opt/adguardhome/work:Z\
+    -v /home/ha/$container_name/conf:/opt/adguardhome/conf:Z\
+    --restart=always
+    -p 53:53/tcp -p 53:53/udp\
+    -p 67:67/udp -p 68:68/udp\
+    -p 80:80/tcp -p 443:443/tcp -p 443:443/udp -p 3000:3000/tcp\
+    -p 853:853/tcp\
+    -p 784:784/udp -p 853:853/udp -p 8853:8853/udp\
+    -p 5443:5443/tcp -p 5443:5443/udp\
+    -d adguard/adguardhome
+
+    
+    fi
+fi
+
+
+
+
+
+
+
+
+
+

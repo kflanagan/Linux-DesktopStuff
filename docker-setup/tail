@@ -1,0 +1,1 @@
+curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up --auth-key=tskey-auth-ksDvpzwket11CNTRL-Ah6jwKVS3zBLF8eaG4gdzBq32zHE4mvZ

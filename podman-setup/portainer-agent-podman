@@ -1,0 +1,11 @@
+podman run -d \
+    -p 9001:9001 \
+    --name portainer_agent \
+    --replace \
+    --security-opt label=disable \
+    --restart=always \
+    -v /run/podman/podman.sock:/var/run/docker.sock:Z \
+    portainer/agent:2.19.5
+
+#    -v ${HOME}/.local/share/containers/storage/volumes:/var/lib/docker/volumes \
+#    portainer/agent:2.19.5
