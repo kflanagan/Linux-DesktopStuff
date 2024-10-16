@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Full docker container setup, change the two variables here at the top for your basedir
+# Full podman container setup, change the two variables here at the top for your basedir
 ## - Create a user for the container
 ## - Create that users homedir
 ## - Create a directory for your volumes

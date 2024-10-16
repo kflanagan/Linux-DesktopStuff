@@ -1,0 +1,1 @@
+podman run -d -p 8123:8123 --name HomeAssistant  -e PUID=1001 -e PGID=1001 -v /home/ha:/config:Z -v /etc/localtime:/etc/localtime:ro --restart=always --net=host homeassistant/home-assistant #This is hard coded for now

@@ -1,3 +1,10 @@
+#!/bin/bash
+echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
+read -p "Any key to continue or ^C to exit"
+
+
+
+
 podman run -d \
     -p 9001:9001 \
     --name portainer_agent \
@@ -6,6 +13,3 @@ podman run -d \
     --restart=always \
     -v /run/podman/podman.sock:/var/run/docker.sock:Z \
     portainer/agent:2.19.5
-
-#    -v ${HOME}/.local/share/containers/storage/volumes:/var/lib/docker/volumes \
-#    portainer/agent:2.19.5
