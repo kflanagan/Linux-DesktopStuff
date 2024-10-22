@@ -21,8 +21,8 @@ ExecStart=/usr/bin/podman run \
 	-d \
 	--name=firefox \
 	--security-opt seccomp=unconfined \
-	-e PUID=1111 \
-	-e PGID=1111 \
+	-e PUID=1004 \
+	-e PGID=1004 \
 	-e TZ=Etc/UTC \
 	-e FIREFOX_CLI=https://google.com./ \
 	-p 3000:3000 \
