@@ -7,9 +7,9 @@ read -p "Any key to continue or ^C to exit"
 ###################
 # All setup is here, modify for the container to set up
 # Set variables to be used below
-container_user="firefox"
-container_longname="firefox"
-container_path="lscr.io/linuxserver/firefox:latest"
+container_user="grafana"
+container_longname="Grafana"
+container_path="grafana/grafana"
 
 # Add the HA user if it doesn't exist 
 useradd $container_user || echo "User already exists."
@@ -38,14 +38,12 @@ fi
 
 
 
-podman run -d --name=firefox --security-opt seccomp=unconfined `#optional` \
--e PUID=1111 \
--e PGID=1111 \
--e TZ=Etc/UTC \
--e FIREFOX_CLI=https://google.com./ `#optional` \
--p 3005:3000 \
--p 3001:3001 \
---shm-size="1GB" \
+#Now we have gathered the info start the container
+podman run -d \
+-p 3000:3000 \
+--name $container_longname \
+-e PUID=$container_uid \
+-e PGID=$container_gid \
 --replace \
---restart unless-stopped \
-lscr.io/linuxserver/firefox:latest
+--restart always \
+$container_path

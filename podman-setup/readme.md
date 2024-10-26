@@ -1,6 +1,10 @@
 # Setting up containers at home using Podman instead of docker
 
+When I moved my "home server" tools to my desktop that wasn't getting used as much as I might, freeing me up to have one less computer in the house.  
 
+My home server is just a desktop running Fedora 40 with an extra SSD in it.  I run a mix of things on it, and because containers and VMs give you the opportunity to set things up to experiment on but not ruin the underlying system, I do.
+
+VMs for me are disposable, I play with a new tool or Linux distro, I may keep it around for a bit, but it's not permanent.  
 
 
 ## Shell Scripts
