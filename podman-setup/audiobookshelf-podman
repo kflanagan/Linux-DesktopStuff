@@ -60,7 +60,7 @@ else
 	-p 13378:13378   \
 	-v $MediaDir/config:/config:Z \
 	-v $MediaDir/metadata:/metadata:Z   \
-    -v $MediaDir/podcass:/podcasts:Z \
+    -v $MediaDir/podcasts:/podcasts:Z \
 	-v /media/Audiobooks:/audiobooks:Z \
 	--name audiobookshelf \
 	ghcr.io/advplyr/audiobookshelf
