@@ -1,31 +1,44 @@
 #!/bin/bash
-
-
-# Add the container user if it doesn't exist 
-container_name="audiobookshelf"
-useradd $container_name || echo "User already exists."
+echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
+read -p "Any key to continue or ^C to exit"
 
 
 
-# create the ha directory for the docker volumes if it doesn't exist
+###################
+# All setup is here, modify for the container to set up
+# Set variables to be used below
+container_user="audiobookshelf"
+container_longname="audiobookshelf"
+container_path="ghcr.io/advplyr/audiobookshelf"
 
-if [ ! -d /home/$container_name ];then
-     if ! mkdir /home/$container_name; then  # Shorter version. Shell will complain if you p>
-     echo "Can't make dir: $container_name"
+# Add the HA user if it doesn't exist 
+useradd $container_user || echo "User already exists."
+
+
+
+# create the user directory for the podman volume if it doesn't exist
+dirName=/home/$container_user
+if [ ! -d $dirName ];then
+     if ! mkdir $dirName; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $dirName"
      fi
 fi
 
 
-# Create the media directory if it doesn't exist
+# Get the user and group ID for below
+container_uid=`id -u $container_user`
+container_gid=`id -g $container_user`
 
-MediaDir=/media/$container_name
-if [ ! -d $MediaDir ];then
-     if ! mkdir $MediaDir; then  # Shorter version. Shell will complain if you p>
-     echo "Can't make dir: $MediaDir"
+
+# If the home directory exists, set the ownership 
+if [ ! -d $dirName ];then
+     if ! chown -R $container_uid:$container_gid $dirName; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $dirName"
      fi
 fi
 
-chown -R 
+
+
 # Now see if the container is running already
 
 if [ "$(podman ps -q -f name=$container_name)" ]; then
@@ -38,7 +51,7 @@ else
 
         echo "$container_name is not running $(podman rm $container_name)"
 # start the container
-        podman run -d  --restart=always \
+    podman run -d  --restart=always \
 	-p 13378:13378   \
 	-v $MediaDir/config:/config \
 	-v $MediaDir/metadata:/metadata   \
