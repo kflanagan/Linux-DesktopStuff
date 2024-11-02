@@ -51,14 +51,17 @@ else
     if [ "!$(podman container inspect $container_name > /dev/null 2>&1)" ]; then
 
         echo "$container_name is not running $(podman rm $container_name)"
+
+    MediaDir="/media/audiobookshelf"
 # start the container
     podman run -d  --restart=always \
     -e PUID=$container_id   \
     -e PGID=$container_grp   \
 	-p 13378:13378   \
-	-v $MediaDir/config:/config \
-	-v $MediaDir/metadata:/metadata   \
-	-v /media/Audiobooks:/audiobooks \
+	-v $MediaDir/config:/config:Z \
+	-v $MediaDir/metadata:/metadata:Z   \
+    -v $MediaDir/podcass:/podcasts:Z
+	-v /media/Audiobooks:/audiobooks:Z \
 	--name audiobookshelf \
 	ghcr.io/advplyr/audiobookshelf
 
