@@ -57,7 +57,7 @@ else
     podman run -d  --restart=always \
     -e PUID=$container_id   \
     -e PGID=$container_grp   \
-	-p 13378:80   \
+	-p 13378:13378   \
 	-v $MediaDir/config:/config:Z \
 	-v $MediaDir/metadata:/metadata:Z   \
     -v $MediaDir/podcasts:/podcasts:Z \
