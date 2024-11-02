@@ -1,0 +1,61 @@
+#!/bin/bash
+
+
+# Add the container user if it doesn't exist 
+container_name="audiobookshelf"
+useradd $container_name || echo "User already exists."
+
+
+
+# create the ha directory for the docker volumes if it doesn't exist
+
+if [ ! -d /home/$container_name ];then
+     if ! mkdir /home/$container_name; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $container_name"
+     fi
+fi
+
+
+# Create the media directory if it doesn't exist
+
+MediaDir=/media/$container_name
+if [ ! -d $MediaDir ];then
+     if ! mkdir $MediaDir; then  # Shorter version. Shell will complain if you p>
+     echo "Can't make dir: $MediaDir"
+     fi
+fi
+
+chown -R 
+# Now see if the container is running already
+
+if [ "$(podman ps -q -f name=$container_name)" ]; then
+    echo "Container $container_name is running, nothing to do"
+
+else
+# if the container isn't running, remove it and issue the run again
+    echo "Container $container_name is not running."
+    if [ "!$(podman container inspect $container_name > /dev/null 2>&1)" ]; then
+
+        echo "$container_name is not running $(podman rm $container_name)"
+# start the container
+        podman run -d  --restart=always \
+	-p 13378:13378   \
+	-v $MediaDir/config:/config \
+	-v $MediaDir/metadata:/metadata   \
+	-v /media/Audiobooks:/audiobooks \
+	-v $MediaDir/podcasts:/podcasts   \
+	--name audiobookshelf \
+	ghcr.io/advplyr/audiobookshelf
+
+    fi
+fi
+
+
+
+
+
+
+
+
+
+
