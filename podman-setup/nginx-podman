@@ -3,13 +3,15 @@ echo "  This script will create a user, and a directory for home assistant, then
 read -p "Any key to continue or ^C to exit"
 
 
+podman run --name=nginx -p 80:80 -v $HOME/nginx:/etc/nginx/conf.d:Z -d 
+
 
 ###################
 # All setup is here, modify for the container to set up
 # Set variables to be used below
-container_user="grafana"
-container_longname="Grafana"
-container_path="grafana/grafana"
+container_user="nginx"
+container_longname="nginx"
+container_path="docker.io/library/nginx"
 
 # Add the HA user if it doesn't exist 
 useradd $container_user || echo "User already exists."
@@ -40,11 +42,14 @@ fi
 
 #Now we have gathered the info start the container
 podman run -d \
--p 3000:3000 \
+-p 80:80 \
 --name $container_longname \
 -e PUID=$container_uid \
 -e PGID=$container_gid \
--v /home/ha:/data:Z \
+-v /home/nginx:/etc/nginx/conf.d:Z \
 --replace \
 --restart always \
 $container_path
+
+
+# -v $HOME/nginx:/etc/nginx/conf.d:Z \

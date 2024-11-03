@@ -71,7 +71,7 @@ podman run -d   --name=$container_name   \
 -e TZ=Etc/UTC   \
 -e USER="kevin" \
 -e PASS="deadhead" \
--e WHITELIST="192.168.1.253" \
+-e LOCAL_NETWORK="192.168.1.0/24" \
 -p 9091:9091 \
 -p 51413:51413 \
 -p 51413:51413/udp \
