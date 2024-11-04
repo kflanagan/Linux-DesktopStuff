@@ -43,8 +43,10 @@ fi
 
 
 podman run -d \
--p 8085:8081  \
---name=metube \
+-p 8082:8081  \
+--name=$container_name   \
+-e PUID=$container_id   \
+-e PGID=$container_grp   \
 --replace \
 --restart always \
 --net=host \
