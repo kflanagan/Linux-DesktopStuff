@@ -126,15 +126,15 @@ entryPoints:
 # Docker configuration backend
 ################################################################
 
-#providers:
+providers:
   # Enable Docker configuration backend
-#  docker:
+  docker:
     # Docker server endpoint. Can be a tcp or a unix socket endpoint.
     #
     # Required
      Default: "unix:///var/run/docker.sock"
     #
-    endpoint: tcp://10.88.0.1:8123
+     endpoint: tcp://10.88.0.1:8123
 
     # Default host rule.
     #
