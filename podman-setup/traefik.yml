@@ -70,21 +70,21 @@ entryPoints:
 #
 # Optional
 #
-accessLog:
+#accessLog:
   # Sets the file path for the access log. If not specified, stdout will be used.
   # Intermediate directories are created if necessary.
   #
   # Optional
-  Default: os.Stdout
+#  Default: os.Stdout
   #
-  filePath: /home/traefik/log.txt
+#  filePath: /home/traefik/log.txt
 
   # Format is either "json" or "common".
   #
   # Optional
   # Default: "common"
   #
-  format: json
+#  format: json
 
 ################################################################
 # API and dashboard configuration
