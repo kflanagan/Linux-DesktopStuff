@@ -49,6 +49,5 @@ podman run -d \
 -e PGID=1009   \
 --replace \
 --restart always \
---net=host \
 -v /media/staging:/downloads:Z \
 ghcr.io/alexta69/metube
