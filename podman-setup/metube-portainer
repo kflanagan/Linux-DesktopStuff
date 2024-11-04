@@ -44,7 +44,7 @@ fi
 
 podman run -d \
 -p 8081:8081  \
---name=metube
+--name=metube \
 --replace \
 --restart always \
 --net=host \
