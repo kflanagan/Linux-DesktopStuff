@@ -43,7 +43,7 @@ fi
 
 
 podman run -d \
--p 8081:8085  \
+-p 8085:8081  \
 --name=metube \
 --replace \
 --restart always \
