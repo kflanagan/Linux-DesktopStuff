@@ -42,6 +42,6 @@ fi
 
 
 
-podman run -d -p 8080:8080 -p 80:80 \
+podman run -d -p 8080:8081 -p 80:80 \
     -v $dirName/traefik.yml:/etc/traefik/traefik.yml:Z \
     $container_path
