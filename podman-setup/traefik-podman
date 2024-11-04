@@ -1,5 +1,3 @@
-
-
 #!/bin/bash
 echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
 read -p "Any key to continue or ^C to exit"
@@ -45,5 +43,5 @@ fi
 
 
 podman run -d -p 8080:8080 -p 80:80 \
-    -v $PWD/traefik.yml:/etc/traefik/traefik.yml:Z \
+    -v $dirName/traefik.yml:/etc/traefik/traefik.yml:Z \
     $container_path
