@@ -48,6 +48,6 @@ podman run -d \
 -v /etc/localtime:/etc/localtime:ro \
 -v /media/music:/media:Z \
 --replace \
---restart always \
+--restart unless-stopped \
 --net=host \
 ghcr.io/home-assistant/home-assistant:stable

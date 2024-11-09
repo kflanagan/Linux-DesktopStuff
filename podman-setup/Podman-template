@@ -1,4 +1,7 @@
 #!/bin/bash
+# This is a template that only needs the variables at the top and the podman line at the bottom. 
+# 
+#
 echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
 read -p "Any key to continue or ^C to exit"
 
@@ -7,9 +10,9 @@ read -p "Any key to continue or ^C to exit"
 ###################
 # All setup is here, modify for the container to set up
 # Set variables to be used below
-container_user="heimdall"
-container_longname="heimdall"
-container_path="linuxserver/heimdall:latest"
+container_user=""
+container_longname=""
+container_path=""
 
 # Add the HA user if it doesn't exist 
 useradd $container_user || echo "User already exists."
@@ -36,17 +39,4 @@ if [ ! -d $dirName ];then
      fi
 fi
 
-
-echo "To continue to start the container,"
-read -p "Any key to continue or ^C to exit"
-
-podman run -d \
-  --name=heimdall \
-  -e PUID=1010 \
-  -e PGID=1010 \
-  -e TZ=Etc/UTC \
-  -p 80:80 \
-  -p 443:443 \
-  -v /home/heimdall/config:/config:Z \
-  --restart unless-stopped \
-  $container_path
+podman run......
