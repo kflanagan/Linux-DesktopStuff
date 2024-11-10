@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # This is a template that only needs the variables at the top and the podman line at the bottom. 
@@ -12,10 +13,10 @@ read -p "Any key to continue or ^C to exit"
 # All setup is here, modify for the container to set up
 # Set variables to be used below
 #####################
-container_user=""
-container_longname=""
-container_path=""
-########################3
+container_user="jellyfin"
+container_longname="jellyfin"
+container_path="jellyfin"
+#####################
 
 
 # Add the container user if it doesn't exist 
@@ -42,4 +43,18 @@ if [ ! -d $dirName ];then
      fi
 fi
 
-podman run......
+
+
+
+podman run \
+ --detach \
+ --label "io.containers.autoupdate=registry" \
+ --name jellyfin \
+ --publish 8096:8096/tcp \
+ --rm \
+ --user $(id -u jellyfin):$(id -g jellyfin) \
+--userns keep-id \
+ --volume $dirName/jellyfin-cache:/cache:Z \
+ --volume $dirNamejellyfin-config:/config:Z \
+ --mount type=bind,source=/media,destination=/media,ro=true,relabel=private \
+ docker.io/jellyfin/jellyfin:latest
