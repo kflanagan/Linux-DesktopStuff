@@ -53,8 +53,8 @@ podman run \
  --publish 8096:8096/tcp \
  --rm \
  --user $(id -u jellyfin):$(id -g jellyfin) \
---userns keep-id \
- --volume $dirName/jellyfin-cache:/cache:Z \
- --volume $dirNamejellyfin-config:/config:Z \
+ --userns keep-id \
+ --volume $dirName/jellyfincache:/cache:Z \
+ --volume $dirNamejellyfinconfig:/config:Z \
  --mount type=bind,source=/media,destination=/media,ro=true,relabel=private \
  docker.io/jellyfin/jellyfin:latest
