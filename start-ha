@@ -1,2 +1,0 @@
-sudo docker run -d --name="home-assistant" --restart always -v /var/homeassistant:/config -v /etc/localtime:/etc/localtime:ro --net=host homeassistant/home-assistant
-

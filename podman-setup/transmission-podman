@@ -76,7 +76,7 @@ podman run -d   --name=$container_name   \
 -p 51413:51413 \
 -p 51413:51413/udp \
 -v $BaseDir:/config:Z \
--v $BaseDir/downloads:/downloads:Z   \
+-v /media/staging:/downloads:Z   \
 --restart unless-stopped  \
 lscr.io/linuxserver/transmission:latest
 

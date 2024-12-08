@@ -1,0 +1,40 @@
+#! /bin/bash
+
+set $mediatype = foo
+echo "This script supports mp4 to mkv, or just move mkv / mp3 : "
+read -p 'Media type: ' mediatype
+
+
+
+case $mediatype in 
+	mp3)
+		# Set ownership for plex/jellyfin
+		chown plex:plex /media/staging/*.$mediatype
+		# Set wide open file permissions
+		chmod 755 /media/staging/*.$mediatype
+		mv *.$mediatype /media/music
+		;;
+	mkv) 
+		
+		# Set ownership for plex/jellyfin
+		chown plex:plex /media/staging/*.$mediatype
+		# Set wide open file permissions
+		chmod 755 /media/staging/*.$mediatype
+		mv *.$mediatype /media/MusicVideos
+		;;
+	mp4)
+		for a in ./*.mp4; do
+  		ffmpeg -i "$a" -qscale:a 0 "${a[@]/%mp4/mkv}"
+		done
+		# Set ownership for plex/jellyfin
+		chown plex:plex /media/staging/*.mkv
+		# Set wide open file permissions
+		chmod 755 /media/staging/*.mkv
+		mv *.mkv /media/MusicVideos
+		;;
+esac
+
+echo "You entered "$mediatype
+echo "Try again"
+
+

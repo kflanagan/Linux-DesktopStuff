@@ -45,8 +45,8 @@ podman run -d \
   -e PUID=1010 \
   -e PGID=1010 \
   -e TZ=Etc/UTC \
-  -p 80:80 \
-  -p 443:443 \
+  -p 8081:80 \
+  -p 8443:443 \
   -v /home/heimdall/config:/config:Z \
   --restart unless-stopped \
   $container_path

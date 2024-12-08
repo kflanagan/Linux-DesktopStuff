@@ -13,9 +13,9 @@ read -p "Any key to continue or ^C to exit"
 # All setup is here, modify for the container to set up
 # Set variables to be used below
 #####################
-container_user="jellyfin"
-container_longname="jellyfin"
-container_path="jellyfin"
+container_user="pihole"
+container_longname="pihole"
+container_path="pihole/pihole:latest"
 #####################
 
 
@@ -48,15 +48,11 @@ fi
 
 podman run \
  --detach \
- --label "io.containers.autoupdate=registry" \
- --name jellyfin \
- --publish 8096:8096/tcp \
- --rm \
- --user $(id -u jellyfin):$(id -g jellyfin) \
+ --name $container_longname \
+ --publish 53:53/tcp \
+ --publish 53:53/udp \
+ --publish 80:80/tcp \
+ --hostname pi-hole \
+ --user $(id -u $container_user):$(id -g $container_user) \
  --userns keep-id \
- --volume $dirName/cache:/cache:Z \
- --volume $dirName/config:/config:Z \
- --volume /media/music:/media/music:Z \
- --volume /media/Audiobooks:/media/Audiobooks:Z \
- --volume /media/MusicVideos:/media/MusicVideos:Z \
- docker.io/jellyfin/jellyfin:latest
+ $container_path

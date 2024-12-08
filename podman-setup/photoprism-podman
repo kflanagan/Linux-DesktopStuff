@@ -13,9 +13,9 @@ read -p "Any key to continue or ^C to exit"
 # All setup is here, modify for the container to set up
 # Set variables to be used below
 #####################
-container_user="jellyfin"
-container_longname="jellyfin"
-container_path="jellyfin"
+container_user="photoprism"
+container_longname="photoprism"
+container_path="photoprism"
 #####################
 
 
@@ -46,17 +46,15 @@ fi
 
 
 
-podman run \
- --detach \
- --label "io.containers.autoupdate=registry" \
- --name jellyfin \
- --publish 8096:8096/tcp \
- --rm \
- --user $(id -u jellyfin):$(id -g jellyfin) \
- --userns keep-id \
- --volume $dirName/cache:/cache:Z \
- --volume $dirName/config:/config:Z \
- --volume /media/music:/media/music:Z \
- --volume /media/Audiobooks:/media/Audiobooks:Z \
- --volume /media/MusicVideos:/media/MusicVideos:Z \
- docker.io/jellyfin/jellyfin:latest
+
+podman run -d \
+  --name photoprism \
+  --privileged \
+  --security-opt seccomp=unconfined \
+  --security-opt apparmor=unconfined \
+  -p 2342:2342 \
+  -e PHOTOPRISM_UPLOAD_NSFW="true" \
+  -e PHOTOPRISM_ADMIN_PASSWORD="insecure" \
+  -v /photoprism/storage \
+  -v ~photoprism/Pictures:/photoprism/originals \
+  photoprism/photoprism:latest

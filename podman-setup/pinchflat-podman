@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # This is a template that only needs the variables at the top and the podman line at the bottom. 
@@ -13,10 +12,10 @@ read -p "Any key to continue or ^C to exit"
 # All setup is here, modify for the container to set up
 # Set variables to be used below
 #####################
-container_user="jellyfin"
-container_longname="jellyfin"
-container_path="jellyfin"
-#####################
+container_user="pinchflat"
+container_longname="pinchflat"
+container_path="ghcr.io/kieraneglin/pinchflat:latest"
+########################
 
 
 # Add the container user if it doesn't exist 
@@ -43,20 +42,14 @@ if [ ! -d $dirName ];then
      fi
 fi
 
-
-
-
-podman run \
- --detach \
- --label "io.containers.autoupdate=registry" \
- --name jellyfin \
- --publish 8096:8096/tcp \
- --rm \
- --user $(id -u jellyfin):$(id -g jellyfin) \
- --userns keep-id \
- --volume $dirName/cache:/cache:Z \
- --volume $dirName/config:/config:Z \
- --volume /media/music:/media/music:Z \
- --volume /media/Audiobooks:/media/Audiobooks:Z \
- --volume /media/MusicVideos:/media/MusicVideos:Z \
- docker.io/jellyfin/jellyfin:latest
+# Be sure to replace /host/path/to/config and /host/path/to/downloads below with
+# the paths to the directories you created in step 1
+# Be sure to replace America/New_York with your local timezone
+podman run -d \
+  --name pinchflat
+  -e TZ=America/New_York \
+   --user $(id -u pinchflat):$(id -g pinchflat) \
+  -p 8945:8945 \
+  -v $container_user:/config \
+  -v $container_user:/downloads \
+  ghcr.io/kieraneglin/pinchflat:latest

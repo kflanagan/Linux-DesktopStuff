@@ -1,4 +1,9 @@
+
 #!/bin/bash
+
+# This is a template that only needs the variables at the top and the podman line at the bottom. 
+# 
+#
 echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
 read -p "Any key to continue or ^C to exit"
 
@@ -7,19 +12,21 @@ read -p "Any key to continue or ^C to exit"
 ###################
 # All setup is here, modify for the container to set up
 # Set variables to be used below
-container_user="ha"
-container_longname="Home-Assistant"
-container_path="homeassistant/home-assistant"
+#####################
+container_user="sonarr"
+container_longname="sonarr"
+container_path="sonarr"
+#####################
 
-# Add the HA user if it doesn't exist 
+
+# Add the container user if it doesn't exist 
 useradd $container_user || echo "User already exists."
-
 
 
 # create the user directory for the podman volume if it doesn't exist
 dirName=/home/$container_user
 if [ ! -d $dirName ];then
-     if ! mkdir $dirName; then  # Shorter version. Shell will complain if you p>
+     if ! mkdir $dirName; then 
      echo "Can't make dir: $dirName"
      fi
 fi
@@ -31,23 +38,19 @@ container_gid=`id -g $container_user`
 
 # If the home directory exists, set the ownership 
 if [ ! -d $dirName ];then
-     if ! chown -R $container_uid:$container_gid $dirName; then  # Shorter version. Shell will complain if you p>
+     if ! chown -R $container_uid:$container_gid $dirName; then  
      echo "Can't make dir: $dirName"
      fi
 fi
 
 
-
-#Now we have gathered the info start the container
 podman run -d \
--p 8123:8123 \
---name HomeAssistant  \
--e PUID=1001 \
--e PGID=1001 \
--v /home/ha:/config:Z \
--v /etc/localtime:/etc/localtime:ro \
--v /media/music:/media:Z \
---replace \
---restart unless-stopped \
---net=host \
-ghcr.io/home-assistant/home-assistant:latest
+  --name sonarr \
+  --user $(id -u sonarr):$(id -g sonarr) \
+  -e TZ=Etc/UTC \
+  -p 8989:8989 \
+  -v /$dirName:/config:Z \
+  -v /media/TV:/tv:Z  \
+  -v /media/staging:/downloads:Z  \
+  --restart unless-stopped \
+  lscr.io/linuxserver/sonarr:latest
