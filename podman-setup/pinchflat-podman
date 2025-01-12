@@ -46,7 +46,7 @@ fi
 # the paths to the directories you created in step 1
 # Be sure to replace America/New_York with your local timezone
 podman run -d \
-  --name pinchflat
+  --name pinchflat \
   -e TZ=America/New_York \
    --user $(id -u pinchflat):$(id -g pinchflat) \
   -p 8945:8945 \

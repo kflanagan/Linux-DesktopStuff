@@ -59,4 +59,5 @@ podman run \
  --volume /media/music:/media/music:Z \
  --volume /media/Audiobooks:/media/Audiobooks:Z \
  --volume /media/MusicVideos:/media/MusicVideos:Z \
+ --volume /media/stuff:/media/stuff:Z \
  docker.io/jellyfin/jellyfin:latest
