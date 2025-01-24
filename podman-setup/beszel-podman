@@ -1,0 +1,87 @@
+#!/bin/bash
+echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
+read -p "Press any key to continue or Ctrl+C to exit."
+
+
+
+###################
+# All setup is here, modify for the container to set up
+# Set variables to be used below
+container_name="beszel"
+container_user="beszel"
+container_longname="beszel"
+container_path="docker.io/henrygd/beszel"
+DataDir="beszel_data"
+
+# Add the user if it doesn't exist 
+sudo useradd $container_user || echo "User already exists."
+
+
+
+# create the user directory for the podman volume if it doesn't exist
+dirName=/home/$container_user
+if [ ! -d $dirName ];then
+     if ! mkdir $dirName; then  
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+
+# Get the user and group ID for below
+container_uid=`id -u $container_user`
+container_gid=`id -g $container_user`
+
+
+# If the home directory exists, set the ownership 
+if [ ! -d $dirName ];then
+     if ! chown -R $container_uid:$container_gid $dirName; then  
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+# If the data dir doesn't exist, create it and set ownership
+dirName=/home/$container_user/$DataDir
+if [ ! -d $dirName ];then
+     if ! (mkdir $dirName;chown -R $container_name:$container_grp $dirName) then  
+     echo "Can't make dir: $dirName"
+     
+     fi
+fi
+
+#if [ ! -d $dirName ];then
+#     if ! chown -R $container_uid:$container_gid $dirName; then  
+#     fi
+#fi
+
+# Now see if the container is running already
+
+if [ "$(podman ps -q -f name=$container_name)" ]; then
+    echo "Container $container_name is running, nothing to do"
+
+else
+# if the container isn't running, remove it and issue the run again
+    echo "Container $container_name is not running."
+    if [ "!$(podman container inspect $container_name > /dev/null 2>&1)" ]; then
+
+        echo "$container_name is not running $(podman rm $container_name)"
+
+    DataDir="beszel_data"
+# start the container
+mkdir -p ./beszel_data && \
+podman run -d \
+  --name beszel \
+  --restart=unless-stopped \
+  -v /home/beszel/beszel_data:/beszel_data \
+  -p 8090:8090 \
+  $container_path
+  #docker.io/henrygd/beszel
+
+    fi
+fi
+
+
+
+
+
+
+
