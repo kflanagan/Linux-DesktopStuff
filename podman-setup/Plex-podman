@@ -18,7 +18,7 @@ container_longname="plex"
 container_path="lscr.io/linuxserver/plex:latest"
 
 #Basedir is for all of the volumes
-BaseDir=/media
+BaseDir=/plex
 #####################################
 
 
@@ -79,7 +79,7 @@ else
 #############################
 # start the container
 podman run -d   --name=$container_name  --net=host   \
--e PUID=1002   -e PGID=1002   -e TZ=Etc/UTC   -e VERSION=podman   \
+-e PUID=1003   -e PGID=1003   -e TZ=Etc/UTC   -e VERSION=podman   \
 -e PLEX_CLAIM= `#optional`   \
 --replace \
 -v $BaseDir/config:/config:Z   \
@@ -99,5 +99,10 @@ lscr.io/linuxserver/plex:latest
 fi
 
 
+echo "create systemd service for $container_name and cp it to /etc/systemd/system/container-$container_name.service"
+# Now that we have the container running, let's make a systemd service for it
+podman generate systemd --new --files --name plex
 
+# copy that service file to the systemd directory
+cp container-$container_name.service /etc/systemd/system/container-$container_name.service
 

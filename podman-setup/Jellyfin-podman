@@ -24,10 +24,17 @@ useradd $container_user || echo "User already exists."
 
 
 # create the user directory for the podman volume if it doesn't exist
+# While we are at it, make the subdirectories for the volumes
 dirName=/home/$container_user
 if [ ! -d $dirName ];then
      if ! mkdir $dirName; then 
      echo "Can't make dir: $dirName"
+     fi
+     if ! $dirName/cache; then
+     echo "Can't make dir: $dirName/cache"
+     fi
+     if ! $dirName/config; then
+     echo "Can't make dir: $dirName/config"
      fi
 fi
 
@@ -56,8 +63,8 @@ podman run \
  --userns keep-id \
  --volume $dirName/cache:/cache:Z \
  --volume $dirName/config:/config:Z \
- --volume /media/music:/media/music:Z \
- --volume /media/Audiobooks:/media/Audiobooks:Z \
- --volume /media/MusicVideos:/media/MusicVideos:Z \
- --volume /media/stuff:/media/stuff:Z \
+ --volume /plex/music:/media/music:Z \
+ --volume /plex/Audiobooks:/media/Audiobooks:Z \
+ --volume /plex/MusicVideos:/media/MusicVideos:Z \
+ --volume /plex/stuff:/media/stuff:Z \
  docker.io/jellyfin/jellyfin:latest
