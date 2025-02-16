@@ -2,19 +2,83 @@
 #
 # 
 # Set up to create user and directories if they don't exist is a to-do
+#!/bin/bash
+
+# This is a template that only needs the variables at the top and the podman line at the bottom. 
+# 
+#
+echo "  This script will create a user, and a directory for home assistant, then build the podman run command from that"
+read -p "Any key to continue or ^C to exit"
+
+
+
+###################
+# All setup is here, modify for the container to set up
+# Set variables to be used below
+#####################
+container_user="stirlingpdf"
+container_longname="stirlingpdf"
+container_path="frooodle/s-pdf:latest"
+########################
+
+
+# Add the container user if it doesn't exist 
+useradd $container_user || echo "User already exists."
+
+
+# create the user directory for the podman volume if it doesn't exist
+dirName=/home/$container_user
+if [ ! -d $dirName ];then
+     if ! mkdir $dirName; then 
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+# Get the user and group ID for below
+container_uid=`id -u $container_user`
+container_gid=`id -g $container_user`
+
+
+# If the home directory exists, set the ownership 
+if [ ! -d $dirName ];then
+     if ! chown -R $container_uid:$container_gid $dirName; then  
+     echo "Can't make dir: $dirName"
+     fi
+fi
+
+if [ ! -d $dirName/trainingData ];then
+     if ! chown -R $container_uid:$container_gid $dirName/trainingData; then  
+     echo "Can't make dir: $dirName/trainingData"
+     fi
+fi
+if [ ! -d $dirName/extraConfigs ];then
+     if ! chown -R $container_uid:$container_gid $dirName/extraConfigs; then  
+     echo "Can't make dir: $dirName/extraConfigs"
+     fi
+fi
+if [ ! -d $dirName/logs ];then
+     if ! chown -R $container_uid:$container_gid $dirName/logs; then  
+     echo "Can't make dir: $dirName/logs"
+     fi
+fi
+
+# create the directories for the podman volumes if they don't exist
+
+
+
 
 podman run -d \
         -p 8080:8080 \
-        -v /opt/stirlingpdf/trainingData:/usr/share/tessdata:Z \
-        -v /opt/stirlingpdf/extraConfigs:/configs:Z \
-        -v /opt/stirlingpdf/logs:/logs:Z \
+        -v /home/stirlingpdf/trainingData:/usr/share/tessdata:Z \
+        -v /home/stirlingpdf/extraConfigs:/configs:Z \
+        -v /home/stirlingpdf/logs:/logs:Z \
 	--replace \
         -e DOCKER_ENABLE_SECURITY=false \
         -e INSTALL_BOOK_AND_ADVANCED_HTML_OPS=false \
         -e LANGS=en_GB \
 	--restart=always\
         --name stirling-pdf \
-        frooodle/s-pdf:latest
+         docker.io/frooodle/s-pdf:latest
 
 #        -e PUID=1002 \
 #        -e PGID=1002 \
