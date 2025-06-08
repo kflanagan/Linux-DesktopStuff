@@ -1,1 +1,0 @@
-sudo podman run --replace --name prometheus -d -p 9090:9090 prom/prometheus
