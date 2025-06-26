@@ -1,0 +1,7 @@
+*.iso
+.cache/
+*.tmp
+*.tar
+*.HEIC
+*.MOV
+*.msi
