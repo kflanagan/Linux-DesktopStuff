@@ -7,12 +7,18 @@
 # Example: SOURCE_DIR="/home/youruser/Documents"
 SOURCE_DIR="/home/kevin" # Path to the directory you want to back up
 
+
+#set the current host to a variable
+CURRENT_HOST=$(hostname -s)
+
 # Define the base destination directory on the 'to' device (remote system).
 # Format: [user@]host:/path/to/base/directory
 # rsync uses SSH for remote connections, so ensure SSH keys or password authentication is set up.
 # Example: DESTINATION_BASE_DIR="youruser@remotehost:/mnt/backup_drive/my_backups"
 # Example: DESTINATION_BASE_DIR="backupuser@192.168.1.100:/data/backups"
-DESTINATION_BASE_DIR="kevin@ubuntu-server:/backups" # Path to your remote backup directory
+DESTINATION_BASE_DIR="kevin@ubuntu-server:/backups/$CURRENT_HOST" # Path to your remote backup directory
+
+
 
 # Create a directory for the backup if it does not exist, based on the timestamp.
 # homedir files for the user running the script go in it, then move to the remote host.
@@ -33,6 +39,8 @@ DESTINATION_BASE_DIR="kevin@ubuntu-server:/backups" # Path to your remote backup
 EXCLUSION_FILE="./exclude.txt" # Path to your exclusion file (optional)
 
 # Log file for script output.
+#if the directory backups does not exist, create it
+mkdir -p /var/log/backups
 LOG_FILE="/var/log/backups/backup_$(date +%Y%m%d%H%M%S).log"
 
 # --- Script Logic ---
