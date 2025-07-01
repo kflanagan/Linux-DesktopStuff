@@ -89,7 +89,7 @@ rsync $RSYNC_OPTIONS "$SOURCE_DIR/" "$FINAL_DESTINATION" 2>&1 | tee -a "$LOG_FIL
 
 # compress the backup directory on the remote server
 echo "Compressing the backup directory on the remote server..." | tee -a "$LOG_FILE"
-ssh -o BatchMode=yes -o ConnectTimeout=5 "ubuntu-server" "tar -czf /backups/$TIMESTAMP.tgz /backups/$TIMESTAMP && rm -rf /backups/$TIMESTAMP" 2>&1 | tee -a "$LOG_FILE"    
+ssh -o BatchMode=yes -o ConnectTimeout=5 "ubuntu-server" "tar -czf /backups/$TIMESTAMP.tgz /backups/$CURRENT_HOST/$TIMESTAMP && rm -rf /backups/$TIMESTAMP" 2>&1 | tee -a "$LOG_FILE"    
 
 # Check if the compression was successful
 if [ $? -ne 0 ]; then
