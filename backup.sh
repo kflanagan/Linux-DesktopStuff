@@ -16,7 +16,7 @@ CURRENT_HOST=$(hostname -s)
 # rsync uses SSH for remote connections, so ensure SSH keys or password authentication is set up.
 # Example: DESTINATION_BASE_DIR="youruser@remotehost:/mnt/backup_drive/my_backups"
 # Example: DESTINATION_BASE_DIR="backupuser@192.168.1.100:/data/backups"
-DESTINATION_BASE_DIR="kevin@ubuntu-server:/backups/$CURRENT_HOST" # Path to your remote backup directory
+DESTINATION_BASE_DIR="kevin@ubuntu-vm:/backups/$CURRENT_HOST" # Path to your remote backup directory
 
 
 
@@ -89,7 +89,7 @@ rsync $RSYNC_OPTIONS "$SOURCE_DIR/" "$FINAL_DESTINATION" 2>&1 | tee -a "$LOG_FIL
 
 # compress the backup directory on the remote server
 echo "Compressing the backup directory on the remote server..." | tee -a "$LOG_FILE"
-ssh -o BatchMode=yes -o ConnectTimeout=5 "ubuntu-server" "tar -czf /backups/$TIMESTAMP.tgz /backups/$CURRENT_HOST/$TIMESTAMP && rm -rf /backups/$TIMESTAMP" 2>&1 | tee -a "$LOG_FILE"    
+ssh -o BatchMode=yes -o ConnectTimeout=5 "ubuntu-vm" "tar -czf /backups/$TIMESTAMP.tgz /backups/$CURRENT_HOST/$TIMESTAMP && rm -rf /backups/$TIMESTAMP" 2>&1 | tee -a "$LOG_FILE"    
 
 # Check if the compression was successful
 if [ $? -ne 0 ]; then
