@@ -40,7 +40,9 @@ EXCLUSION_FILE="./exclude.txt" # Path to your exclusion file (optional)
 
 # Log file for script output.
 #if the directory backups does not exist, create it
-mkdir -p /var/log/backups
+if [ ! -d "/var/log/backups" ]; then
+    mkdir -p "/var/log/backups" || { echo "ERROR: Failed to create /var/log/backups" >&2; exit 1; }
+fi
 LOG_FILE="/var/log/backups/backup_$(date +%Y%m%d%H%M%S).log"
 
 # --- Script Logic ---
