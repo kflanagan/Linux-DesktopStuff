@@ -1,0 +1,39 @@
+Instead of the deployment genie that we can't use now, can we build our own way to do the same thing?
+
+Get last deployment ID based on EAI code
+Arguments:
+  $1 - EAI code
+Returns:
+  Last deployment ID
+Usage: get_last_deployment_id "EAI_CODE"
+API call or sql script?  SQL works, but a lot slower than API call.
+
+With deployment ID, we get the host names from another API call.
+ With host names, we can scp the logs from each host.
+
+Send the logs to Copilot with the following prompt
+"Analyze the following agent logs for errors and get a suggested fix."
+Send the piece of the log file that has errors only to the screen along with the suggested fix.
+
+
+From Google
+To get logs from an IBM DevOps Deploy (formerly UrbanCode Deploy) agent via an API call, you primarily use the udclient command-line tool which interacts with the server's REST API. The specific API call you need to use is not a single, direct command to "get agent logs," but rather an API that can be used to perform an operational process that gathers the logs. 
+Method: Using a Component Process to Gather Logs
+The recommended approach, particularly for remote agents, is to create an operational component process within IBM DevOps Deploy that runs a script on the target agent to collect the desired log files, zip them, and upload them to the CodeStation repository. This process can then be triggered via the REST API or udclient. 
+Steps to Implement:
+Create a "Log Receiver" component: This component in IBM DevOps Deploy will be used to store the collected log files (as component versions).
+Define a Component Process: In the Log Receiver component, create an operational (without a version) process that includes the following steps:
+Shell Script Step: Use a shell script (or a platform-specific step like "Command Line" or "Windows Command") to gather the necessary log files on the agent machine and create a single archive (e.g., a zip file).
+"Create Version" Step: Use this built-in step to upload the generated archive file to the CodeStation repository associated with the Log Receiver component.
+Cleanup Steps (Optional but Recommended): Add steps to clean the agent's working directory before and after the process runs to manage disk space.
+Execute the Process via API: You can then use the udclient to trigger this component process on a specific agent.
+Authentication: Ensure you are authenticated with the IBM DevOps Deploy server using your username/password or an authentication token. The udclient handles much of the complexity of the REST API authentication and interaction.
+Command Example: The general structure of the udclient command to run a component process would look like this (you will need to replace placeholders with your actual values):
+bash
+udclient --weburl https://yourserver:port --username youruser --password yourpassword runComponentProcess --component "Log Receiver" --process "Gather Agent Logs" --resource "/path/to/your/agent/resource" 
+Retrieve the Logs: Once the process completes, the logs will be available as a new version in the "Log Receiver" component in the IBM DevOps Deploy web UI, from where they can be downloaded. 
+Discovering APIs
+For advanced use cases, you can explore all available REST API endpoints using the Web Application Description Language (WADL) document from your server at https://yourserver:port/cli/application.wadl?detail=true. The udclient can present this information in a more human-readable format with the --help option. 
+
+
+https://community.ibm.com/community/user/blogs/ibm-ibm-devops-expert/2022/05/09/ucd-remotely-get-application-logs
