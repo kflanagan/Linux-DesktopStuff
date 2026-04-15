@@ -1,5 +1,0 @@
-bluetoothctl << EOF
-power on
-agent on
-connect 50:1A:A5:F8:77:C8
-EOF

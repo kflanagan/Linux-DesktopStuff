@@ -1,2 +1,0 @@
-system plexmediaserver stop
-systemctl disable plexmediaserver
